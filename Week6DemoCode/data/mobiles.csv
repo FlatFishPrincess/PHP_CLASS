@@ -1,0 +1,53 @@
+type,cpu_type,form_factor,RAM,color
+Android,Exynos,Slate,1024,white
+iOS,Qualcomm,Slate,512,silver
+Android,Intel,Flip,1024,white
+iOS,Qualcomm,Flip,2048,gold
+Android,Exynos,Flip,2048,white
+Windows,MediaTek,Slate,4096,black
+Windows,Exynos,Slate,1024,rose gold
+Windows,Exynos,Slate,4096,white
+Windows,Exynos,Slate,4096,rose gold
+Blackberry,MediaTek,Slate,512,gold
+iOS,MediaTek,Flip,2048,silver
+Windows,Intel,Flip,1024,black
+iOS,Exynos,Slate,4096,gold
+Windows,Exynos,Slate,4096,white
+Android,Qualcomm,Slate,1024,silver
+Blackberry,Intel,Slate,4096,silver
+Blackberry,Qualcomm,Slate,2048,black
+iOS,MediaTek,Slate,1024,gold
+Android,Qualcomm,Slate,1024,rose gold
+Blackberry,Qualcomm,Flip,512,rose gold
+Android,MediaTek,Flip,4096,black
+Blackberry,Qualcomm,Slate,2048,rose gold
+Android,MediaTek,Slate,512,white
+Windows,Exynos,Slate,4096,rose gold
+Windows,MediaTek,Slate,512,gold
+iOS,Intel,Flip,2048,black
+Android,Qualcomm,Flip,2048,rose gold
+Windows,Exynos,Flip,2048,gold
+Windows,Qualcomm,Slate,1024,white
+Blackberry,Intel,Slate,1024,rose gold
+Windows,Qualcomm,Flip,2048,rose gold
+Android,Intel,Flip,4096,gold
+Blackberry,Intel,Slate,512,gold
+iOS,Exynos,Flip,512,silver
+Android,Intel,Flip,2048,rose gold
+Android,Qualcomm,Slate,512,white
+Windows,Exynos,Slate,2048,black
+Android,Exynos,Flip,512,rose gold
+iOS,Intel,Flip,512,white
+Blackberry,Intel,Slate,1024,gold
+Blackberry,Qualcomm,Slate,4096,rose gold
+Blackberry,Qualcomm,Slate,4096,black
+Android,Qualcomm,Slate,512,rose gold
+iOS,Exynos,Flip,2048,silver
+iOS,MediaTek,Flip,4096,silver
+Blackberry,Qualcomm,Flip,512,gold
+Windows,Exynos,Flip,512,white
+Windows,Qualcomm,Flip,2048,gold
+Blackberry,Intel,Flip,1024,black
+Android,MediaTek,Flip,512,rose gold
+
+Android,Qualcom,Notch!,4096,Sparkling Pink

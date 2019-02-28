@@ -1,0 +1,26 @@
+pizza_type,crust_type,veggie_topping,meat_topping,order_type
+Pepperoni,Normal,Green Peppers,Bacon,Take out
+Margherita,Thin,Almonds,Bacon,Take out
+Sicilian,Thin,Spinach,Bacon,Delivery
+Pepperoni,Stuffed,Pineapples,Chicken,Take out
+Pepperoni,Deep Dish,Almonds,Pepperoni,Eat in
+Margherita,Normal,Spinach,Steak,Eat in
+Chicago,Thin,Mushrooms,Chicken,Eat in
+Pepperoni,Stuffed,Almonds,Bacon,Take out
+Greek,Whole wheat,Almonds,Steak,Eat in
+Margherita,Thin,Almonds,Pepperoni,Take and Bake
+Pepperoni,Stuffed,Almonds,Pepperoni,Eat in
+Sicilian,Normal,Mushrooms,Bacon,Delivery
+Greek,Stuffed,Almonds,Pepperoni,Delivery
+Pepperoni,Stuffed,Spinach,Pepperoni,Take and Bake
+Sicilian,Normal,Green Peppers,Steak,Take and Bake
+Sicilian,Stuffed,Green Peppers,Sausage,Take out
+Greek,Stuffed,Mushrooms,Bacon,Delivery
+Pepperoni,Stuffed,Green Peppers,Pepperoni,Eat in
+Pepperoni,Thin,Almonds,Pepperoni,Delivery
+Pepperoni,Thin,Green Peppers,Chicken,Take and Bake
+Pepperoni,Deep Dish,Mushrooms,Steak,Delivery
+Sicilian,Whole wheat,Mushrooms,Bacon,Eat in
+Margherita,Thin,Spinach,Chicken,Delivery
+Margherita,Thin,Pineapples,Steak,Eat in
+Chicago,Deep Dish,Green Peppers,Steak,Eat in
