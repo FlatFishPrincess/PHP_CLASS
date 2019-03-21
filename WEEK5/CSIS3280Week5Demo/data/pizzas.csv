@@ -1,0 +1,26 @@
+pizza_type,crust_type,veggie_topping,meat_topping,order_type
+Margherita,whole wheat,"",Bacon,Take out
+Margherita,Thin,Pineapples,Sausage,Delivery
+Sicilian,Stuffed,Mushrooms,Chicken,Eat  In
+Sicilian,Deep Dish,Green Peppers,Sausage,Eat  In
+Chicago,Thin,Spinach,Pepperoni,Take and Bake
+Margherita,Thin,Mushrooms,Pepperoni,Take and Bake
+Pepperoni,Thin,Green Peppers,Chicken,Eat  In
+Greek,whole wheat,Spinach,Bacon,Take and Bake
+Greek,whole wheat,Almonds,Sausage,Eat  In
+Pepperoni,Green Peppers,Sausage,Take out
+Greek,Thin,Pineapples,Pepperoni,Take out
+Pepperoni,Thin,Mushrooms,Steak,Delivery
+Margherita,Deep Dish,Spinach,Steak,Delivery
+Chicago,Thin,Mushrooms,Pepperoni,Take and Bake
+Margherita,Deep Dish,Pineapples,Bacon,Take out
+Pepperoni,Thin,Spinach,Bacon,Eat  In
+Greek,Deep Dish,Mushrooms,Pepperoni,Take and Bake
+Chicago,Normal,"",Sausage,Take and Bake
+Pepperoni,Deep Dish,Almonds,Pepperoni,Take and Bake
+Margherita,whole wheat,"",Chicken,Delivery
+Margherita,Stuffed,Spinach,Pepperoni,Take out
+Sicilian,whole wheat,Green Peppers,Bacon,Take out
+Pepperoni,Deep Dish,Almonds,Sausage,Delivery
+Chicago,Stuffed,Pineapples,Steak,Take and Bake
+Margherita,Stuffed,Pineapples,Steak,Delivery
