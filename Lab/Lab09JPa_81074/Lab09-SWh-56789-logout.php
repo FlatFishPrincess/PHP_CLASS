@@ -10,6 +10,7 @@ if (LoginManager::verifyLogin())    {
     Page::$title = "Good Bye.";
     Page::header("logoff");
     Page::goodBye();
+    Page::footer();
 } else {
     //Unset the session or destroy the session
     unset($_SESSION);

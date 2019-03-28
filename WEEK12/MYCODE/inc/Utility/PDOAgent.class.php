@@ -22,11 +22,14 @@ private $error;
 //Prepared Statement
 private $stmt;
 
+//Store the PDO object
+private $pdo;
+
 public function __construct(string $className)  {
 
     //Copy the class name
     $this->className = $className;
-    
+
     //Build DSN
     $this->dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
 
@@ -44,7 +47,7 @@ public function __construct(string $className)  {
 
 //Prepare the satemet for execution
 public function query(string $query)    {
-    $this->stmt = $this->pdo->prepare($query);
+    $this->stmt = $this->pdo->prepare($query); //  Prepares a statement for execution and returns a statement object
 }
 
 public function bind($param, $value, $type = null)  {  
@@ -74,6 +77,10 @@ public function bind($param, $value, $type = null)  {
        }
    }
    
+
+//   fetch(PDO::FETCH_CLASS )
+//   returns a new instance of the requested class, mapping the columns of the result set to named properties in the class
+
    //Return a single result
    public function singleResult()   {
        
@@ -81,26 +88,25 @@ public function bind($param, $value, $type = null)  {
         $this->stmt->execute();
         //set fetch mode to return classes
         $this->stmt->setFetchMode(PDO::FETCH_CLASS, $this->className);
-        return $this->stmt->fetch(PDO::FETCH_CLASS);
+        return $this->stmt->fetch(PDO::FETCH_CLASS); //Fetches the next row from a result set
    }
 
    //Return resultSet
    public function resultSet()  {
        //Executethe statement
        $this->stmt->execute();
-    
-       return $this->stmt->fetchAll(PDO::FETCH_CLASS,$this->className);
+       return $this->stmt->fetchAll(PDO::FETCH_CLASS,$this->className);  // Returns an array containing all of the result set rows
    }
 
    //Return the rowcount
    public function rowCount() : int   {
        return $this->stmt->rowCount();
    }
-   //Return the lastInsertedID
-   public function lastInsertedId() : int{
-       return $this->pdo->lastInsertedId();
-
-   }
+   
+    //Get the lastInsertedID
+    public function lastInsertId(): int{  
+        return $this->pdo->lastInsertId();  
+    }
    //Get the debug info
    public function debugDumpParams()    {
        return $this->stmt->debugDumpParams();

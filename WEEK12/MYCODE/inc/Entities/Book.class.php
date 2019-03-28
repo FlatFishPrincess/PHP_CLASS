@@ -53,6 +53,22 @@ class Book  {
     function setAuthor(string $newAuthor)   {
         $this->Author = $newAuthor;
     }
+
+    // function addition serialize 
+    function jsonSerialize()    {
+        // $vars = get_object_vars($this);
+        // return $vars;
+
+        // make a standard class
+        $obj = new StdClass;
+        $obj->ISBN = $this->getISBN();
+        $obj->Title = $this->getTitle();
+        $obj->Price = $this->getPrice();
+        $obj->Author = $this->getAuthor();
+
+        // return the standart class
+        return $obj;
+    }
 }
 
 ?>

@@ -35,7 +35,7 @@ class BooksMapper {
 
         self::$db->execute();
 
-        return self::$db->lastInsertedId();
+        return self::$db->lastInsertId();
 
     }
 
@@ -46,6 +46,29 @@ class BooksMapper {
         self::$db->query($selectAll);
         self::$db->execute();
         return self::$db->resultSet();
+    }
+
+    static function deleteBook(string $isbn) : bool {
+        $deleteSQLQuery = "DELETE FROM Books WHERE ISBN = :bookid;";
+
+        try {
+
+            self::$db->query($deleteSQLQuery);
+            self::$db->bind(':bookid', $isbn);
+            self::$db->execute();
+
+            if (self::$db->rowCount() != 1) {
+                throw new Exception("Problem deleting book $isbn");
+            }
+        } catch(Exception $ex) {
+            echo $ex->getMessage();
+            self::$db->debugDumpParams();
+            return false;
+            
+        }
+
+        return true;
+
     }
 
 }

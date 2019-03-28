@@ -8,6 +8,7 @@ Class User  {
     // | email     | varchar(50) | YES  |     | NULL    |                |
     // | username  | varchar(50) | YES  |     | NULL    |                |
     // | password  | text        | YES  |     | NULL    |                |
+    
     //Attributes
     private $id;
     private $firstName;
@@ -70,6 +71,7 @@ Class User  {
 
     //Verify password
     public function verifyPassword($verifyPassword) : bool {
+        // password_verify(); should use
         return ($verifyPassword == $this->getPassword()) ? true : false; // if return 1, true
     }
 }
