@@ -40,6 +40,13 @@ if (!empty($_POST)) {
 
 }
 
+// if(isset($_POST["action"] && post["edit"] ){
+//     ... edit customer (with customer id)
+//  } else {
+//      ... create customer (withoud customer id)
+//  }
+
+
 // BooksMapper::createBook($b);
 $customers = CustomersMapper::getCustomers();
 
