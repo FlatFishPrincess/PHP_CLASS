@@ -71,6 +71,18 @@ class BooksMapper {
 
     }
 
+    static function getBook(int $isbn){
+        $sqlSelect = "SELECT * FROM books WHERE ISBN = :isbn";
+        // query 
+        self::$db->query($sqlSelect);
+        // bind 
+        self::$db->bind(":isbn", $isbn);
+        // execute 
+        self::$db->execute();
+        // return
+        self::$db->singleResult();
+    }
+
 }
 
 ?>

@@ -1,4 +1,3 @@
-
 <?php
 
 // mysql> DESC books;

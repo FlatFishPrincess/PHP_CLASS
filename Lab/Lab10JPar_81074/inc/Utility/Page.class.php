@@ -55,62 +55,64 @@ class Page  {
 
     <?php }
 
-    static function listBooks($bookData)    {
+    static function listCustomers($customerData)    {
 
         echo '<table class="u-full-width">
         <thead>
-          <tr>
-            <th>ISBN</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Price</th>
-            <th>Delete</th>
-          </tr>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <td>Delete</td>
+            <td>Edit</td>
+        </tr>
         </thead>
         <tbody>';
 
-        foreach ($bookData as $book)    {
+        foreach ($customerData as $customer)    {
             echo '  <tr>
-            <td>'.$book->getISBN().'</td>
-            <td>'.$book->getTitle().'</td>
-            <td>'.$book->getAuthor().'</td>
-            <td>'.$book->getPrice().'</td>
-            <td><A HREF="'.$_SERVER["PHP_SELF"].'?action=delete&isbn='.$book->getISBN().'
-            ">Delete</A></td>
+            <td>'.$customer->getName().'</td>
+            <td>'.$customer->getCity().'</td>
+            <td>'.$customer->getAddress().'</td>
+            <td>
+                <A HREF="'.$_SERVER["PHP_SELF"].'?action=delete&customerId='.$customer->getCustomerID().'">Delete</A>
+            </td>
+            <td>
+                <A HREF="'.$_SERVER["PHP_SELF"].'?action=edit&customerId='.$customer->getCustomerID().'">Edit</A>
+            </td>
             </tr>';
         }
         
         echo '</tbody>
         </table>';
-  
+
     }
 
-    static function showAddForm()   { ?>
-
+    static function showAddForm($customer = null)   { ?>
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <div class="row">
+            <div class="row">
+                <h4><?php echo $customer? "Edit Customer - " . $customer->getCustomerID() : "Add Customer" ?></h4>
+                <div class="eight columns">
+                    <label for="name">name</label>
+                    <input class="u-full-width" type="text" placeholder="First Last" id="name" name="name"
+                        value="<?php echo $customer? $customer->getName() : ""  ?>">
+                    
+                    <label for="address">address</label>
+                    <input class="u-full-width" type="text" placeholder="full address" id="address" name="address"
+                        value="<?php echo $customer? $customer->getAddress() : "" ?>">
 
+                    <label for="city">city</label>
+                    <input class="u-full-width" type="text" placeholder="city name" id="city" name="city"
+                        value="<?php echo $customer? $customer->getCity() : "" ?>">
 
-            <div class="eight columns">
-            <label for="Title">ISBN</label>
-            <input class="u-full-width" type="text" placeholder="XXX-XXX-XXX" id="isbn" name="isbn">
-            
-            <label for="title">Title</label>
-            <input class="u-full-width" type="text" placeholder="Book Title" id="title" name="title">
-
-            <label for="title">Author</label>
-            <input class="u-full-width" type="text" placeholder="Book Author" id="author" name="author">
- 
-            <label for="title">Price</label>
-            <input class="u-full-width" type="text" placeholder="Book Price X.XX" id="price" name="price">
-  
-            <input class="button-primary" type="submit" value="Submit">
+                    <input class="u-full-width" type="hidden" placeholder="customer Id" id="customerID" name="customerId" 
+                        value="<?php echo $customer? $customer->getCustomerID(): ""  ?>">
+                    
+                    <input class="button-primary" type="submit" value="Submit">
+                </div>
             </div>
-          
-
-        </div>
-        
         </form>
-
     <?php }
-}
+
+} 
+?>
