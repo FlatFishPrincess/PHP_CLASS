@@ -55,8 +55,7 @@ class Page  {
 
     <?php }
 
-    static function listBooks($bookData)    {
-
+    static function listBooks($books = null)    {
         echo '<table class="u-full-width">
         <thead>
           <tr>
@@ -65,45 +64,59 @@ class Page  {
             <th>Author</th>
             <th>Price</th>
             <th>Delete</th>
+            <th>Update</th>
           </tr>
         </thead>
         <tbody>';
 
-        foreach ($bookData as $book)    {
-            echo '  <tr>
-            <td>'.$book->getISBN().'</td>
-            <td>'.$book->getTitle().'</td>
-            <td>'.$book->getAuthor().'</td>
-            <td>'.$book->getPrice().'</td>
-            <td><A HREF="'.$_SERVER["PHP_SELF"].'?action=delete&isbn='.$book->getISBN().'
-            ">Delete</A></td>
+        foreach($books as $book){
+            echo '<tr>
+                <td>' . $book->getISBN() . '</td>
+                <td>' . $book->getTitle() . '</td>
+                <td>' . $book->getAuthor() . '</td>
+                <td>' . $book->getPrice() . '</td>
+                <td>' .
+                    '<a href= "' . $_SERVER['PHP_SELF'] . '?action=delete&isbn=' . $book->getISBN() . '">
+                        Delete
+                    </a>
+                </td>
+                <td>' .
+                '<a href= "' . $_SERVER['PHP_SELF'] . '?action=update&isbn=' . $book->getISBN() . '">
+                    Update
+                </a>
+            </td>
             </tr>';
         }
-        
         echo '</tbody>
         </table>';
-  
     }
 
-    static function showAddForm()   { ?>
+    static function displayErrors($errors){
+        echo '<ul>';
+        foreach($errors as $error){
+            echo '<li>' . $error . '</li>';
+        }
+        echo '</ul>';
+    }
+    static function showAddForm(Book $updateBook = null)   { ?>
 
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <div class="row">
-
-
             <div class="eight columns">
             <label for="Title">ISBN</label>
-            <input class="u-full-width" type="text" placeholder="XXX-XXX-XXX" id="isbn" name="isbn">
+            <input class="u-full-width" type="text" placeholder="XXX-XXX-XXX" id="isbn" name="isbn"
+                value = "<?php echo $updateBook != null ? $updateBook->getISBN() : "" ?>">
             
             <label for="title">Title</label>
             <input class="u-full-width" type="text" placeholder="Book Title" id="title" name="title">
 
-\            <label for="title">Author</label>
+            <label for="title">Author</label>
             <input class="u-full-width" type="text" placeholder="Book Author" id="author" name="author">
  
             <label for="title">Price</label>
             <input class="u-full-width" type="text" placeholder="Book Price X.XX" id="price" name="price">
   
+            <input type="text" name="edit" value= "<?php echo $updateBook != null ? "true" : "false"?>" />
             <input class="button-primary" type="submit" value="Submit">
             </div>
           

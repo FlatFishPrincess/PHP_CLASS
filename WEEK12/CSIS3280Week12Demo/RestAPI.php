@@ -11,70 +11,53 @@ BooksMapper::initialize("Book");
 parse_str(file_get_contents('php://input'), $requestData);
 
 switch($_SERVER["REQUEST_METHOD"])  {
-    //Its  a GET request, time to read!
     case "GET":
-
-    if (isset($requestData['isbn']))  {
-
-        $book = BooksMapper::getBook($requestData['isbn']);
-
-        $jbook = $book->jsonSerialize();
-
-        header('Content-Type: application/json');
-        echo json_encode($jbook);
-
-    } else {
-        //Get all the books
-        $books = BooksMapper::getBooks();
-
-        //Initialize an array to hold the serialized books
-        $serializedBooks = array();
-
-        //Go through all the books and add them to the serialized array
-        foreach ($books as $book)   {
-            $serializedBooks[] = $book->jsonSerialize();
+        if(isset($requestData) && !empty($requestData['isbn'])){
+            $book = BooksMapper::getBook($requestData['isbn']);
+            $jsonBook = $book->jsonSerialize();
+            header('Content-Type: application/json');
+            echo json_encode($jsonBook);
+        } else {
+            // get all books 
+            $books = BooksMapper::getBooks();
+            $serializedBooks = array();
+            //Go through all the books and add them to the serialized array
+            foreach ($books as $book)   {
+                $serializedBooks[] = $book->jsonSerialize();
+            }
+            // var_dump($serializedBooks);
+            header('Content-Type: application/json');
+            echo json_encode($serializedBooks);
         }
-
-        //Set the header
-        // header('Content-Type: application/json');
-        //Return all the books!
-        echo json_encode($serializedBooks);
-
-    }
     break;
-
-    //Do the insert thing...
     case "POST":
-
-        //New Book
-        $nb = new Book();
-        $nb->setISBN($requestData['isbn']);
-        $nb->setTitle($requestData['title']);
-        $nb->setAuthor($requestData['author']);
-        $nb->setPrice($requestData['price']);
-        
-        //Add book to DB
-        $result = BooksMapper::createBook($nb);
-
-        //REturn result
+        //get request book data
+        $newBook = new Book();
+        $newBook->setISBN($requestData['isbn']);
+        $newBook->setAuthor($requestData['author']);
+        $newBook->setPrice($requestData['price']);
+        $newBook->setTitle($requestData['title']);
+        $newBookId = BooksMapper::createBook($newBook);
         header('Content-Type: application/json');
-        //Return the result.
-        echo json_encode($result);
-
+        echo json_encode($newBookId);
     break;
-
-    //Delete all the things!
     case "DELETE":
-
-        $result = BooksMapper::deleteBook($requestData['isbn']);
-
+        // get isbn, then deelte
+        $isbnToDelete = $requestData['isbn'];
+        if(BooksMapper::deleteBook($isbnToDelete)){
+            header('Content-Type: application/json');
+            echo json_encode($result);
+        }
+    break;
+    case "PUT" : 
+        $updateBook = new Book();
+        $updateBook->setISBN($requestData['isbn']);
+        $updateBook->setAuthor($requestData['author']);
+        $updateBook->setPrice($requestData['price']);
+        $updateBook->setTitle($requestData['title']);
+        $newBookId = BooksMapper::updateBook($updateBook);
         header('Content-Type: application/json');
-        echo json_encode($result);
-
+        echo json_encode($newBookId);
     break;
-
-    default:
-        echo json_encode(array("message" => "Voce fala HTTP?"));
-    break;
-    
+        
 }

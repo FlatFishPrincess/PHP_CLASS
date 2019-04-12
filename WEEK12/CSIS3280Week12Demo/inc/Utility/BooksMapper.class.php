@@ -6,82 +6,89 @@ class BooksMapper {
     private static $db;
 
     static function initialize(string $className)   {
-        
         self::$db = new PDOAgent($className);
-
     }
 
-    // mysql> DESC books;
-    // +--------+------------+------+-----+---------+-------+
-    // | Field  | Type       | Null | Key | Default | Extra |
-    // +--------+------------+------+-----+---------+-------+
-    // | ISBN   | char(13)   | NO   | PRI | NULL    |       |
-    // | Author | char(50)   | YES  |     | NULL    |       |
-    // | Title  | char(100)  | YES  |     | NULL    |       |
-    // | Price  | float(4,2) | YES  |     | NULL    |       |
-    // +--------+------------+------+-----+---------+-------+
-    // 4 rows in set (0.03 sec)
-    
+//     +--------+------------+------+-----+---------+-------+
+// | Field  | Type       | Null | Key | Default | Extra |
+// +--------+------------+------+-----+---------+-------+
+// | ISBN   | char(13)   | NO   | PRI | NULL    |       |
+// | Author | char(50)   | YES  |     | NULL    |       |
+// | Title  | char(100)  | YES  |     | NULL    |       |
+// | Price  | float(4,2) | YES  |     | NULL    |       |
+// +--------+------------+------+-----+---------+-------+
 
-    static function createBook(Book $newBook) : int   {
-        $sqlInsert = "INSERT INTO books (ISBN, Author, Title, Price) VALUES (:isbn, :author, :title, :price)";
-
-        self::$db->query($sqlInsert);
-
-        self::$db->bind(':isbn', $newBook->getISBN());
-        self::$db->bind(':author', $newBook->getAuthor());
-        self::$db->bind(':title', $newBook->getTitle());
-        self::$db->bind(':price', $newBook->getPrice());
-
-        self::$db->execute();
-
+    //static function createBook(Book $newBook) : int 
+    // return lastInsered id
+    static function createBook (Book $newBook) {
+        $selectSql = "insert into Books values(:isbn, :author, :title, :price)";
+        // bind book
+        self::$db->query($selectSql);
+        try{
+            self::$db->bind(":isbn", $newBook->getISBN());
+            self::$db->bind(":author", $newBook->getAuthor());
+            self::$db->bind(":title", $newBook->getTitle());
+            self::$db->bind(":price", $newBook->getPrice());
+            self::$db->execute();
+        } catch(Exception $e){
+            var_dump($e->getMessage());
+        }
         return self::$db->lastInsertId();
-
     }
+   
 
-    static function getBooks() : Array {
-        
-        $selectAll = "SELECT * FROM books;";
-
-        self::$db->query($selectAll);
+    // return array of books 
+    static function getBooks() {
+        $selectQuery = "select * from books";
+        self::$db->query($selectQuery);
         self::$db->execute();
         return self::$db->resultSet();
     }
 
-    static function deleteBook(string $isbn) : bool {
-        $deleteSQLQuery = "DELETE FROM Books WHERE ISBN = :bookid;";
-
-        try {
-
-            self::$db->query($deleteSQLQuery);
-            self::$db->bind(':bookid', $isbn);
+    // return boolean
+    static function deleteBook(string $isbn) {
+       $deleteQuery = "delete from books where isbn = :isbn";
+       try{
+            self::$db->query($deleteQuery);
+            self::$db->bind(":isbn",$isbn);
             self::$db->execute();
-
-            if (self::$db->rowCount() != 1) {
-                throw new Exception("Problem deleting book $isbn");
-            }
-        } catch(Exception $ex) {
-            echo $ex->getMessage();
-            self::$db->debugDumpParams();
+       } catch(Exception $e){
+           // Validation::getPDOErros($e->getMessage());
+            var_dump($e->getMessage());
             return false;
-            
-        }
-
-        return true;
-
+       }
+       return true;
     }
 
+    // return single result
     static function getBook(string $isbn)    {
-        
-        $sqlSelect = "SELECT * FROM books WHERE ISBN = :isbn";
-        //Query
-        self::$db->query($sqlSelect);
-        //Bind
-        self::$db->bind(':isbn', $isbn);
-        //Execute
-        self::$db->execute();
-        //Return
-        return self::$db->singleResult();
+        $selectQuery = "select * from books where isbn = :isbn";
+        try{
+            self::$db->query($selectQuery);
+             self::$db->bind(":isbn",$isbn);
+             self::$db->execute();
+        } catch(Exception $e){
+           //   Validation::getPDOErros($e->getMessage());
+             var_dump($e->getMessage());
+             return;
+        }
+        return  self::$db->singleResult();;
+    }
+
+    static function updateBook(Book $updateBook){
+        $updateQuery = "update books set title=:title, author=:author, price=:price where isbn=:isbn";
+        try{
+            self::$db->query($updateQuery);
+            self::$db->bind(":isbn", $updateBook->getISBN());
+            self::$db->bind(":author", $updateBook->getAuthor());
+            self::$db->bind(":title", $updateBook->getTitle());
+            self::$db->bind(":price", $updateBook->getPrice());
+            self::$db->execute();
+        } catch(Exception $e){
+            var_dump($e->getMessage());
+            return;
+        }
+        return true;
     }
 
 }

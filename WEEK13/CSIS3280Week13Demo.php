@@ -13,7 +13,6 @@ $pen->refill = "Black";
 $pen->capacity = "90%";
 
 $jsonPen = json_encode($pen);
-
 echo "<PRE>";
 echo $jsonPen;
 echo "</PRE>";
@@ -25,10 +24,13 @@ $penXML = $xml->addChild('pen');
 $penXML->addChild('color', $pen->color);
 $penXML->addChild('refill', $pen->refill);
 $penXML->addChild('capacity', $pen->capacity);
-
+$myXml = $xml->addChild('cute');
+$myXml->addChild('name', 'jiweon');
+$myXml->addChild('age', 25);
+$myXml->addChild('from', 'Korea');
 // header("Content-Type: text/xml");
-$xmlString =  $xml->asXML();
-
+$xmlString = $xml->asXML();
+var_dump($xmlString);
 $xmlPen = simplexml_load_string($xmlString);
 
 var_dump($xmlPen);

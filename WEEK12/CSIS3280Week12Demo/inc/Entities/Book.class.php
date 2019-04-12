@@ -56,16 +56,12 @@ class Book  {
 
     //function addition serialize
     function jsonSerialize()    {
-
-        // $vars = get_object_vars($this);
-        // return $vars;
-
-        //Make a standard class
+        
         $obj = new StdClass;
         $obj->ISBN = $this->getISBN();
+        $obj->Price = $this->getPrice();
         $obj->Title = $this->getTitle();
         $obj->Author = $this->getAuthor();
-        $obj->Price = $this->getPrice();
 
         //Return the standard class
         return $obj;

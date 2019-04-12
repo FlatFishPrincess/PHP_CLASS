@@ -19,11 +19,13 @@ if (!empty($_POST)) {
     $m = new Message();
     $m->setMessage($_POST["message"]);
 
-    $_SESSION['messages'][] = $m;
+    var_dump($_SESSION);
+    $_SESSION['messages'] = $m;
 }
 
 Page::header();
 
+var_dump($_SESSION['messages']);
 if (!empty($_SESSION["messages"]))  {
     Page::showMessages($_SESSION['messages']);
 }

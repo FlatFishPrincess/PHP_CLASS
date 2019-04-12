@@ -82,11 +82,17 @@ class Page {
                 </tr>
             </thead>
             <tbody>';
-
-        foreach($messages as $message)  {
-            echo '<TR><TD>'.$message->getMessage().'</TD><TD>'.$message->getDateTime().'</TD></TR>';
+        var_dump($messages);
+        if(is_array($messages)){
+            foreach($messages as $message)  {
+                echo '<TR><TD>'.$message->getMessage().'</TD><TD>'.$message->getDateTime().'</TD></TR>';
+            }
+        } else {
+            echo '<tr>
+                <td>' . $messages . '</td>
+                </tr>';
         }
-            
+     
         echo '   </tbody>
         </table>';
     }

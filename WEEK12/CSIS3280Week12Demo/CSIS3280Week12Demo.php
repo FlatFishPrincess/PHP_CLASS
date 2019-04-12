@@ -6,50 +6,59 @@ require_once("inc/config.inc.php");
 require_once("inc/Entities/Book.class.php");
 
 //Utility Classes
+require_once("inc/Utility/Validation.class.php");
 require_once("inc/Utility/RestClient.class.php");
 require_once("inc/Utility/Page.class.php");
+$bookUpdate = null;
 
-
-if (!empty($_GET))  {
-    if ($_GET["action"] == "delete")    {
-        //Make a REST call out to the WS
-        RestClient::call("DELETE",array('isbn'=>$_GET['isbn']));
+// Delete 
+if(isset($_GET['action']) && isset($_GET['isbn'])){
+    if($_GET['action'] == "delete"){
+        RestClient::call('DELETE', array('isbn' => $_GET['isbn']));
+    }
+    if($_GET['action'] == "update"){
+        $jsonBook = RestClient::call('GET', array('isbn' => $_GET['isbn']));
+        $jsonBook = json_decode($jsonBook);
+        $bookUpdate = new Book();
+        $bookUpdate->setISBN($jsonBook->ISBN);
+        $bookUpdate->setAuthor($jsonBook->Author);
+        $bookUpdate->setPrice($jsonBook->Price);
+        $bookUpdate->setTitle($jsonBook->Title);
+        var_dump($bookUpdate);
     }
 }
-
-//Process any post data
-if (!empty($_POST)) {
-    RestClient::call("POST",$_POST);
-
-    //Add the book to the database
-    
+// Create 
+$errors;
+if(isset($_POST) && !empty($_POST)){
+    Validation::validateInput();
+    $errors = Validation::$errors;
+    if(!empty($errors)){
+        if($_POST['edit'] == "true"){
+            $result = RestClient::call('PUT', $_POST);
+        } else {
+            $result = RestClient::call('POST', $_POST);
+        }
+    }
+   
 }
 
-// BooksMapper::createBook($b);
-//$books = BooksMapper::getBooks();
-
-//Get all the books
-$result = RestClient::call("GET",array());
-
-//De-serialize the result of the Rest call.
-$jbooks = json_decode($result);
-
-//Store them in a new array as proper "Book" objects
+// get books from api and display it 
+$jsonBooks = RestClient::call('GET', array());
+$decodedBooks = json_decode($jsonBooks);
 $books = array();
-
-foreach ($jbooks as $b)  {
-    //Assemble a new book class
-    $nb = new Book();
-    $nb->setISBN($b->ISBN);
-    $nb->setTitle($b->Title);
-    $nb->setAuthor($b->Author);
-    $nb->setPrice($b->Price);
-    //append the new
-    $books[] = $nb;
+foreach($decodedBooks as $book){
+    $newBook = new Book();
+    $newBook->setISBN($book->ISBN);
+    $newBook->setAuthor($book->Author);
+    $newBook->setPrice($book->Price);
+    $newBook->setTitle($book->Title);
+    $books[] = $newBook;
 }
 
-Page::$title = "CSIS 3280 Week9 Demo";
 Page::header();
+if(!empty($errors))
+    Page::displayErrors($errors);
 Page::listBooks($books);
-Page::showAddForm();
-Page::footer();
+// if user click edit button, then bookUpdate will be initialized
+Page::showAddForm($bookUpdate);
+
